@@ -33,3 +33,5 @@ public:
 
 };
 
+//clase abstratca de la cual no se pueden instanciar objetos su proposito es que sea una classe que maneje de manera generica objetos especificos en el juegoi objetos visuales no visuales los recoremos
+//a velocidades altas
