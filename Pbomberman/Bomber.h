@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 class Bomber
 {
 private:
@@ -8,6 +10,13 @@ private:
 	int posicionX;
 	int posicionY;
 public:
+	int numeroVidas;
+
+
+	//constructor
+
+	Bomber();
+	Bomber(int _anchoAvatra,int _altoAvatar,int _numeroVidas);
 
 	// get es un metodo accesor
 	int getanchoAvatar() { return anchoAvatar; }
@@ -20,12 +29,22 @@ public:
 	void setaltoAvatar(int _altoAvatar) { altoAvatar = _altoAvatar; }
 
 
-	int getPosicionXr() { return posicionX; }
+	void colocarBomba();
+	void moverse();
+	void mostrarInformacion();
+
+
+	int getPosicionX() { return posicionX; }
 
 	void setPosicionX(int _PosicionX) { posicionX = _PosicionX; }
 
 
-	void Morrir();
+
+
+	int getPosicionY() { return posicionY; }
+
+	void setPosicionY(int _PosicionY) { posicionX = _PosicionY; }
+	void Morir();
 	void Correr();
 };
 
