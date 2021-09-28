@@ -1,15 +1,19 @@
 #pragma once
 #include "GameObject.h"
 #include "GameDirecctions.h"
+#include "Texture.h"
 
 class GameActor : public GameObject
 {
+
 protected:
 	//Posicion x, y en la textura de ventana principal
 	int posicionX;
 	int posicionY;
 
 	// Ancho y Alto de la imagen del objeto en pixeles
+	int imagenX;
+	int imagenY;
 	int ancho;
 	int alto;
 
@@ -22,25 +26,22 @@ protected:
 	bool terrestre;
 	bool subterraneo;
 
-
 	int velocidad;
 	int energia;
 	int vidas;
 
 	// Representacion grafica del objeto
-	/*Texture* textura;
-	AnimationFrames* framesAnimacion;
-
+	Texture* textura;
+	/*AnimationFrames* framesAnimacion;
 	Tile* tileActual;
-	Tile* tileSiguiente;*/
-
+	Tile* tileSiguiente;
+	*/
 	GameDirection direccionActual;
 	GameDirection direccionSiguiente;
 
 	/*int numeroFrame;
 	int contadorFrames;
 	int framesDireccion;
-
 	SDL_Rect* colisionador;*/
 
 public:
@@ -48,14 +49,16 @@ public:
 	//static TileGraph* tileGraph;
 
 	//Constructores & destructores
-	GameActor();
-	GameActor(string _nombre);
-	//GameActor(Texture* _textura);
-	//~GameActor();
+	GameActor(Texture* _textura);
+	/*
+	GameActor(Texture* _textura);
+	~GameActor();*/
 
 	// Metodos accesores
 	int getPosicionX() { return posicionX; }
 	int getPosicionY() { return posicionY; }
+	int getImagenX() { return imagenX; }
+	int getImagenY() { return imagenY; }
 	int getAncho() { return ancho; }
 	int getAlto() { return alto; }
 	bool getSolido() { return solido; }
@@ -69,7 +72,9 @@ public:
 	int getVelocidad() { return velocidad; }
 	int getEnergia() { return energia; }
 	int getVidas() { return vidas; }
-	/*Texture* getTextura() { return textura; }
+
+	Texture* getTextura() { return textura; }
+	/*
 	AnimationFrames* getFramesAnimacion() { return framesAnimacion; }
 	Tile* getTileActual() { return tileActual; }
 	Tile* getTileSiguiente() { return tileSiguiente; }
@@ -80,6 +85,8 @@ public:
 
 	void setPosicionX(int _posicionX) { posicionX = _posicionX; }
 	void setPosicionY(int _posicionY) { posicionY = _posicionY; }
+	void setImagenX(int _imagenX) { imagenX = _imagenX; }
+	void setImagenY(int _imagenY) { imagenY = _imagenY; }
 	void setAncho(int _ancho) { ancho = _ancho; }
 	void setAlto(int _alto) { alto = _alto; }
 	void setSolido(bool _solido) { solido = _solido; }
@@ -87,16 +94,14 @@ public:
 	void setVisible(bool _visible) { visible = _visible; }
 	void setMovil(bool _movil) { movil = _movil; }
 	void setEnMovimiento(bool _enMovimiento) { enMovimiento = _enMovimiento; }
-
-	void setAereo(bool _aereo) { aereo=_aereo; }
+	void setAereo(bool _aereo) { aereo = _aereo; }
 	void setTerrestre(bool _terrestre) { terrestre = _terrestre; }
 	void setSubterraneo(bool _subterraneo) { subterraneo = _subterraneo; }
 	void setVelocidad(int _velocidad) { velocidad = _velocidad; }
 	void setEnergia(int _energia) { energia = _energia; }
 	void setVidas(int _vidas) { vidas = _vidas; }
-
-	/*void setTextura(Texture* _textura) { textura = _textura; }
-	void setFramesAnimacion(AnimationFrames* _framesAnimacion) { framesAnimacion = _framesAnimacion; }
+	void setTextura(Texture* _textura) { textura = _textura; }
+	/*void setFramesAnimacion(AnimationFrames* _framesAnimacion) { framesAnimacion = _framesAnimacion; }
 	virtual void setTileActual(Tile* _tileNuevo) = 0;
 	void setTileSiguiente(Tile* _tileSiguiente) { tileSiguiente = _tileSiguiente; }
 	void setDireccionActual(MoveDirection _direccionActual) { direccionActual = _direccionActual; }
@@ -109,12 +114,11 @@ public:
 	bool revisarColision(const SDL_Rect* _colisionador1, const SDL_Rect* _colisionador2);
 	bool tratarDeMover(MoveDirection _direccionNueva);
 	int restarEnergia();
-	int restarVida(); */
+	int restarVida();*/
 
 	//Metodos virtuales, redefinidos o sobrecargados
-	virtual void render() {};
+	virtual void render();
 	virtual void update() {};
 	//virtual void handleEvent(SDL_Event* event) = 0;
 	//virtual void deleteGameObject();
 };
-

@@ -153,6 +153,7 @@
     <ClCompile Include="Muro.cpp" />
     <ClCompile Include="poder_especial.cpp" />
     <ClCompile Include="principal.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bomber.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Muro.h" />
     <ClInclude Include="poder_especial.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
