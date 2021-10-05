@@ -4,20 +4,8 @@
 GameManager::GameManager() {
 	gWindow = nullptr;
 	gRenderer = nullptr;
-	texturaBomber1 = nullptr;
-	texturaBomber2 = nullptr;
-	texturaEnemigo1= nullptr;
-	texturaEnemigo2 = nullptr;
-	texturaEnemigo3 = nullptr;
-	texturaEnemigo4 = nullptr;
-	texturaEnemigo5 = nullptr;
-
-	texturaExplosion1 = nullptr;
-	texturaExplosion2 = nullptr;
-	texturaExplosion3 = nullptr;
-	texturaExplosion4 = nullptr;
-	texturaExplosion5 = nullptr;
-	texturaMuro = nullptr;
+	generadorMapa = nullptr;
+	enEjecucion = true;
 }
 
 bool GameManager::onInit() {
@@ -66,24 +54,39 @@ bool GameManager::onInit() {
 	}
 
 	return success;
-};
-
-bool GameManager::loadMedia()
-{
-	//Loading success flag
-	bool success = true;
-
-	//Load PNG texture
-	gTexture = loadTexture("texture.png");
-	if (gTexture == NULL)
-	{
-		printf("Failed to load texture image!\n");
-		success = false;
-	}
-
-	return success;
 }
 
+bool GameManager::loadContent()
+{
+	generadorMapa = new MapGenerator(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+	generadorMapa->crearObjetosJuego("resources/levels/level3.txt");
+	generadorMapa->transferirObjetosJuego(actoresJuego);
+
+	if (actoresJuego.size() > 0)
+		return true;
+
+	return false;
+}
+
+void GameManager::onEvent(SDL_Event* _event)
+{
+}
+
+
+void GameManager::onLoop() {
+	/*for (int i = 0; i < actoresJuego.size(); i++) {
+		actoresJuego[i]->update();
+	}*/
+}
+
+void GameManager::onRender() {
+	SDL_RenderClear(gRenderer);
+	for (int i = 0; i < actoresJuego.size(); i++) {
+		actoresJuego[i]->render();
+	}
+
+	SDL_RenderPresent(gRenderer);
+}
 
 void GameManager::close()
 {
@@ -108,215 +111,32 @@ int GameManager::onExecute() {
 		cout << "Failed to initialize!" << endl;
 		return -1;
 	}
-	else
+
+	if (loadContent() == false) {
+		cout << "Failed to load content!" << endl;
+		return -1;
+	}
+
+	//While application is running
+	while (enEjecucion)
 	{
-		//Main loop flag
-		bool quit = false;
-
-		//Event handler
-		SDL_Event event;
-
-		
-		
-		texturaBomber1 = new Texture(gRenderer);
-		texturaBomber1->loadFromImage("resources/bomber.bmp");
-		texturaBomber2 = new Texture(gRenderer);
-		texturaBomber2->loadFromImage("resources/textures.bmp");
-		texturaEnemigo1 = new Texture(gRenderer);
-		texturaEnemigo1->loadFromImage("resources/Enemigo.bmp");
-		Enemigo* b3 = new Enemigo(texturaEnemigo1);
-		texturaEnemigo2 = new Texture(gRenderer);
-		texturaEnemigo2->loadFromImage("resources/Enemigo.bmp");
-		Enemigo* b4 = new Enemigo(texturaEnemigo2);
-		texturaEnemigo3 = new Texture(gRenderer);
-		texturaEnemigo3->loadFromImage("resources/Enemigo.bmp");
-		Enemigo* b5 = new Enemigo(texturaEnemigo3);
-		texturaEnemigo4 = new Texture(gRenderer);
-		texturaEnemigo4->loadFromImage("resources/Enemigo.bmp");
-		Enemigo* b6 = new Enemigo(texturaEnemigo4);
-		texturaEnemigo5 = new Texture(gRenderer);
-		texturaEnemigo5->loadFromImage("resources/Enemigo.bmp");
-		Enemigo* b7 = new Enemigo(texturaEnemigo5);
-		texturaExplosion1 = new Texture(gRenderer);
-		texturaExplosion1->loadFromImage("resources/Explosion.bmp");
-		Explosion* b8 = new Explosion(texturaExplosion1);
-		texturaExplosion2 = new Texture(gRenderer);
-		texturaExplosion2->loadFromImage("resources/Explosion.bmp");
-		Explosion* b9 = new Explosion(texturaExplosion2);
-		texturaExplosion3 = new Texture(gRenderer);
-		texturaExplosion3->loadFromImage("resources/Explosion.bmp");
-		Explosion* b10 = new Explosion(texturaExplosion3);
-		texturaExplosion4 = new Texture(gRenderer);
-		texturaExplosion4->loadFromImage("resources/Explosion.bmp");
-		Explosion* b11 = new Explosion(texturaExplosion4);
-		texturaExplosion5 = new Texture(gRenderer);
-		texturaExplosion5->loadFromImage("resources/Explosion.bmp");
-		Explosion* b12 = new Explosion(texturaExplosion5);
-		Bomber* b1 = new Bomber(texturaBomber1);
-		Bomber* b2 = new Bomber(texturaBomber2);
-
-		texturaMuro = new Texture(gRenderer);
-		texturaMuro->loadFromImage("resources/Muro.bmp");
-		for (int i = 0; i < 100; i++) {
-		Muro* b13 = new Muro(texturaMuro);
-			b13->setImagenX(12);
-			b13->setImagenY(12);
-			b13->setAncho(30);
-			b13->setAlto(30);
-			Paredes.push_back(b13);
-            b13 = nullptr;
-		}
-
-
-		b1->setImagenX(3);
-		b1->setImagenY(3);
-		b1->setAncho(20);
-		b1->setAlto(30);
-		b1->setPosicionX(40);
-		b1->setPosicionY(50);
-
-		b2->setImagenX(570);
-		b2->setImagenY(3);
-		b2->setAncho(30);
-		b2->setAlto(35);
-		actoresJuego.push_back(b1);
-		actoresJuego.push_back(b2);
-		actoresJuego.push_back(b3);
-		actoresJuego.push_back(b4);
-		actoresJuego.push_back(b5);
-		actoresJuego.push_back(b6);
-		actoresJuego.push_back(b7);
-		actoresJuego.push_back(b8);
-		actoresJuego.push_back(b9);
-		actoresJuego.push_back(b10);
-		actoresJuego.push_back(b11);
-		actoresJuego.push_back(b12);
-		
-		b3->setImagenX(9);
-		b3->setImagenY(9);
-		b3->setAncho(60);
-		b3->setAlto(60);
-		b3->setPosicionX(400);
-		b3->setPosicionY(500);
-
-
-		b9->setImagenX(6);
-		b9->setImagenY(6);
-		b9->setAncho(50);
-		b9->setAlto(60);
-		b9->setPosicionX(200);
-		b9->setPosicionY(300);
-
-		
-
-
-
-		//While application is running
-		while (!quit)
+		//Handle events on queue
+		while (SDL_PollEvent(&evento) != 0)
 		{
-			//Handle events on queue
-			while (SDL_PollEvent(&event) != 0)
-			{
-				//User requests quit
-				if (event.type == SDL_QUIT)
-				{
-					quit = true;
-				}
-			}
-
-			//Clear screen
-			//SDL_RenderClear(gRenderer);
-
-			//Render texture to screen
-			//SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
-
-
-			////Clear screen
-			SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(gRenderer);
-
-			//Update screen
-
-			/*onLoop();
-			onRender();*/
-			for (int i = 0; i < Paredes.size(); i++)
-			{
-				((GameActor*)Paredes[i])->setPosicionX( rand()% SCREEN_WIDTH);
-				((GameActor*)Paredes[i])->setPosicionY(0% SCREEN_HEIGHT);
-				Paredes[i]->update();
-				Paredes[i]->render();
-
-			}
-
-			for (int i = 0; i < Paredes.size(); i++)
-			{
-				((GameActor*)Paredes[i])->setPosicionX(0 % SCREEN_WIDTH);
-				((GameActor*)Paredes[i])->setPosicionY(rand() % SCREEN_HEIGHT);
-				Paredes[i]->update();
-				Paredes[i]->render();
-
-			}
-
-
-			for (int i = 0; i < Paredes.size(); i++)
-			{
-				((GameActor*)Paredes[i])->setPosicionX(rand() % SCREEN_WIDTH);
-				((GameActor*)Paredes[i])->setPosicionY(1170 % SCREEN_HEIGHT);
-				Paredes[i]->update();
-				Paredes[i]->render();
-
-			}
-
-
-			for (int i = 0; i < Paredes.size(); i++)
-			{
-				((GameActor*)Paredes[i])->setPosicionX(3170 % SCREEN_WIDTH);
-				((GameActor*)Paredes[i])->setPosicionY(rand() % SCREEN_HEIGHT);
-				Paredes[i]->update();
-				Paredes[i]->render();
-
-			}
-
-			for (int i = 0; i < actoresJuego.size(); i++) {
-				//((GameActor*)actoresJuego[i])->setPosicionX(rand() % SCREEN_WIDTH);
-				//((GameActor*)actoresJuego[i])->setPosicionY(rand() % SCREEN_HEIGHT);
-				actoresJuego[i]->update();
-				actoresJuego[i]->render();
-			}
-			SDL_RenderPresent(gRenderer);
+			onEvent(&evento);
 		}
+
+		onLoop();
+		onRender();
 	}
 
 	//Free resources and close SDL
 	close();
 
+	std::cout << "Numero de objetos en el vector: " << actoresJuego.size() << std::endl;
+	std::cout << "Numero de objetos creados:" << GameObject::numeroGameObjectCreados << std::endl;
+
 	return 0;
 
 }
 
-SDL_Texture* GameManager::loadTexture(std::string path)
-{
-	//The final texture
-	SDL_Texture* newTexture = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == NULL)
-	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-	}
-	else
-	{
-		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-		if (newTexture == NULL)
-		{
-			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface(loadedSurface);
-	}
-
-	return newTexture;
-}
