@@ -114,6 +114,12 @@ bool MapGenerator::crearObjetosJuego(string _path)
 	if (objetoBomberwoman != nullptr) {
 		((GameActor*)objetoBomberwoman)->setPosicionX(bomberwomanPosicionX * 34);
 		((GameActor*)objetoBomberwoman)->setPosicionY(bomberwomanPosicionY * 34);
+		((GamePawn*)objetoBomberwoman)->setBotomBomba(SDLK_o);
+		((GamePawn*)objetoBomberwoman)->setBotomArriba(SDLK_w);
+		((GamePawn*)objetoBomberwoman)->setBotomAbajo(SDLK_s);
+		((GamePawn*)objetoBomberwoman)->setBotomIzquierda(SDLK_a);
+		((GamePawn*)objetoBomberwoman)->setBotomDerecha(SDLK_d);
+
 		vectorObjectosJuego.push_back(objetoBomberwoman);
 	}
 
