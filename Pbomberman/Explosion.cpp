@@ -4,3 +4,14 @@
 //{
 
 //}
+
+void Explosion::bomba()
+{
+
+}
+
+
+void Explosion::Pila()
+{
+
+}

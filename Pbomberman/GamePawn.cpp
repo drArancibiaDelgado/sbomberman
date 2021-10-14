@@ -21,14 +21,10 @@ void GamePawn::render()
 
 void GamePawn::update()
 {
-	GamePawn::render();
+	GameActor::update();
 }
 
 void GamePawn::deleteGameObjet()
 {
 	GameActor::deleteGameObject();
-}
-
-void GamePawn::setTileActual(Tile* _tileNuevo)
-{
 }

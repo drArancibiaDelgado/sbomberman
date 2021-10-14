@@ -7,10 +7,11 @@ MapGenerator::MapGenerator()
 	renderer = nullptr;
 }
 
-MapGenerator::MapGenerator(SDL_Renderer* _renderer, int _anchoPantalla, int _altoPantalla) :
+MapGenerator::MapGenerator(SDL_Renderer* _renderer, int _anchoPantalla, int _altoPantalla, TilesGraph* _tilesGraph) :
 	anchoPantalla(_anchoPantalla),
 	altoPantalla(_altoPantalla),
-	renderer(_renderer)
+	renderer(_renderer),
+	tilesGraph(_tilesGraph)
 {
 
 }
@@ -44,7 +45,7 @@ bool MapGenerator::crearObjetosJuego(string _path)
 	Texture::renderer = renderer;
 
 	texturaBomberman->loadFromImage("resources/bomberman.jpg");
-	texturaBomberwoman->loadFromImage("resources/bomberwoman.png");
+	texturaBomberwoman->loadFromImage("resources/bomberman.jpg");
 	texturaMuroCeramica->loadFromImage("resources/muro_ceramica.jpg");
 	texturaMuroMetal->loadFromImage("resources/muro_metal.jpg");
 	texturaSueloCesped->loadFromImage("resources/suelo_cesped.jpg");
@@ -53,51 +54,56 @@ bool MapGenerator::crearObjetosJuego(string _path)
 	int y = 0;
 	int bombermanPosicionX = -1;
 	int bombermanPosicionY = -1;
-	int bomberwomanPosicionX = -2;
+	int bomberwomanPosicionX = -1;
 	int bomberwomanPosicionY = -1;
-
 
 	while (getline(file, line)) {
 		vector<char> chars(line.begin(), line.end());
 		x = 0;
 
 		for (int i = 0; i < chars.size(); i++) {
-			GameObject* objetoNuevo = nullptr;
-			Tile* tileNuevo = tilesGraph->getTileEn(x, y);
-			switch (chars[i]) {
-			case '0':
-				objetoNuevo = new SueloCesped(texturaSueloCesped, tileNuevo);
-				if (x > bombermanPosicionX && bombermanPosicionX == -1) {
-					bombermanPosicionX = x;
-					bombermanPosicionY = y;
+			if (chars[i] != ' ') {
+				GameObject* objetoNuevo = nullptr;
+				Tile* tileNuevo = tilesGraph->getTileEn(x, y);
+				switch (chars[i]) {
+				case '0':
+					objetoNuevo = new SueloCesped(texturaSueloCesped, tileNuevo);
+					if (x > bombermanPosicionX && bombermanPosicionX == -1) {
+						bombermanPosicionX = x;
+						bombermanPosicionY = y;
+					}
+
+					if (x > bomberwomanPosicionX || y > bomberwomanPosicionY) {
+						bomberwomanPosicionX = x;
+						bomberwomanPosicionY = y;
+					}
+
+					//pilaObjetosJuegoMurosMetal.Insertar((GameActor*)objetoNuevo);
+
+					break;
+				case '1':
+					objetoNuevo = new MuroMetal(texturaMuroCeramica, tileNuevo);
+					break;
+				case '2':
+					objetoNuevo = new MuroCeramica(texturaMuroMetal, tileNuevo);
+					break;
+					/*case 'B':
+						objetoNuevo = new Bomberman(texturaBomberman, tileNuevo);
+						break;*/
 				}
 
-				if (x > bomberwomanPosicionX || y > bomberwomanPosicionY) {
-					bomberwomanPosicionX = x;
-					bomberwomanPosicionY = y;
+				if (objetoNuevo != nullptr) {
+					((GameActor*)objetoNuevo)->setPosicionX(x * 34);
+					((GameActor*)objetoNuevo)->setPosicionY(y * 34);
+					vectorObjectosJuego.push_back(objetoNuevo);
+					x++;
 				}
-
-				break;
-			case '1':
-				objetoNuevo = new MuroMetal(texturaMuroCeramica, tileNuevo);
-				break;
-			case '2':
-				objetoNuevo = new MuroCeramica(texturaMuroMetal, tileNuevo);
-				break;
-				/*case 'B':
-					objetoNuevo = new Bomberman(texturaBomberman, tileNuevo);
-					break;*/
-			}
-
-			if (objetoNuevo != nullptr) {
-				((GameActor*)objetoNuevo)->setPosicionX(x * 34);
-				((GameActor*)objetoNuevo)->setPosicionY(y * 34);
-				vectorObjectosJuego.push_back(objetoNuevo);
-				x++;
 			}
 		}
 		y++;
 	}
+
+
 
 	GameObject* objetoBomberman = nullptr;
 	Tile* tileNuevo = tilesGraph->getTileEn(bombermanPosicionX, bombermanPosicionY);
