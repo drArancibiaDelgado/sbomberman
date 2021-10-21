@@ -35,7 +35,6 @@ public:
 
 	// Metodos accesores
 	Bomberman* getBomberman() { return bomberman; }
-
 	BombermanRobot* getBombermanRobot() { return bomberobot; }
 	MuroCeramica* getMuroCeramica() { return muroCeramica; }
 	MuroMetal* getMuroMetal() { return muroMetal; }

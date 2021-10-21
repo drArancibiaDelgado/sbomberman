@@ -106,6 +106,11 @@ bool GameActor::tratarDeMover(MoveDirection _direccionNueva) {
 		setTileSiguiente(nullptr);
 		return false;
 	}
+	if (tileDestino->getMuroVegetacion() != nullptr)
+	{
+		setTileSiguiente(nullptr);
+		return false;
+	}
 
 	setTileSiguiente(tileDestino);
 	return true;

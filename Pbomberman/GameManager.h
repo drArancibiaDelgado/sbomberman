@@ -10,6 +10,7 @@
 #include "Bomberman.h"
 #include "BombermanRobot.h"
 #include "MuroMetal.h"
+#include "MuroVegetacion.h"
 #include "MapGenerator.h"
 #include "system/KeyboardInput.h"
 #include "TilesGraph.h"
