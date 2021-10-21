@@ -1,3 +1,5 @@
+//Crear un actor MuroVegetacion y mostrarlo en la pantalla
+//Cree una clase bombermanRobot, que modifique su apariencia
 #include "GameActor.h"
 
 TilesGraph* GameActor::tilesGraph = nullptr;

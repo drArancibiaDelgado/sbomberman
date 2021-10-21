@@ -1,5 +1,6 @@
 #include "MapGenerator.h"
 
+
 MapGenerator::MapGenerator()
 {
 	anchoPantalla = 0;
@@ -30,7 +31,8 @@ bool MapGenerator::crearObjetosJuego(string _path)
 	}
 
 	string line;
-
+	Texture* texturaBombermanRobot;
+	texturaBombermanRobot = new Texture();
 	Texture* texturaBomberman;
 	texturaBomberman = new Texture();
 	Texture* texturaBomberwoman;
@@ -41,11 +43,15 @@ bool MapGenerator::crearObjetosJuego(string _path)
 	texturaMuroCeramica = new Texture();
 	Texture* texturaSueloCesped;
 	texturaSueloCesped = new Texture();
+	Texture* texturaMuroVegetacion;
+	texturaMuroVegetacion = new Texture();
 
 	Texture::renderer = renderer;
 
+	texturaMuroVegetacion->loadFromImage("resources/MuroVegetal.png");
+	texturaBombermanRobot->loadFromImage("resources/robot.png");
 	texturaBomberman->loadFromImage("resources/bomberman.jpg");
-	texturaBomberwoman->loadFromImage("resources/bomberman.jpg");
+	texturaBomberwoman->loadFromImage("resources/bomberwoman.png");
 	texturaMuroCeramica->loadFromImage("resources/muro_ceramica.jpg");
 	texturaMuroMetal->loadFromImage("resources/muro_metal.jpg");
 	texturaSueloCesped->loadFromImage("resources/suelo_cesped.jpg");
@@ -56,6 +62,8 @@ bool MapGenerator::crearObjetosJuego(string _path)
 	int bombermanPosicionY = -1;
 	int bomberwomanPosicionX = -1;
 	int bomberwomanPosicionY = -1;
+	int bomberobotPosicionX = -1;
+	int bomberobotPosicionY = -1;
 
 	while (getline(file, line)) {
 		vector<char> chars(line.begin(), line.end());
@@ -77,6 +85,11 @@ bool MapGenerator::crearObjetosJuego(string _path)
 						bomberwomanPosicionX = x;
 						bomberwomanPosicionY = y;
 					}
+					
+					if (x > bomberobotPosicionX || bombermanPosicionX == -1) {
+						bomberobotPosicionX = x;
+						bomberobotPosicionY = y;
+					}
 
 					//pilaObjetosJuegoMurosMetal.Insertar((GameActor*)objetoNuevo);
 
@@ -86,6 +99,9 @@ bool MapGenerator::crearObjetosJuego(string _path)
 					break;
 				case '2':
 					objetoNuevo = new MuroCeramica(texturaMuroMetal, tileNuevo);
+					break;
+				case '3':
+					objetoNuevo = new MuroVegetacion(texturaMuroVegetacion,tileNuevo);
 					break;
 					/*case 'B':
 						objetoNuevo = new Bomberman(texturaBomberman, tileNuevo);
@@ -129,6 +145,15 @@ bool MapGenerator::crearObjetosJuego(string _path)
 		vectorObjectosJuego.push_back(objetoBomberwoman);
 	}
 
+	
+	GameObject* objetoBombermanRobot = nullptr;
+	tileNuevo = tilesGraph->getTileEn(bomberobotPosicionX, bombermanPosicionY);
+	objetoBombermanRobot = new BombermanRobot(texturaBombermanRobot, tileNuevo);
+	if (objetoBombermanRobot != nullptr) {
+		((GameActor*)objetoBombermanRobot)->setPosicionX(bomberobotPosicionX * 34);
+		((GameActor*)objetoBombermanRobot)->setPosicionY(bomberobotPosicionY * 34);
+		vectorObjectosJuego.push_back(objetoBombermanRobot);
+	}
 
 	return false;
 }

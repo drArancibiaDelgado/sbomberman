@@ -5,8 +5,10 @@
 #include <string>
 #include "GameObject.h"
 #include "Bomberman.h"
+#include "BombermanRobot.h"
 #include "MuroCeramica.h"
 #include "MuroMetal.h"
+#include "MuroVegetacion.h"
 #include "SueloCesped.h"
 #include "Tile.h"
 #include "TilesGraph.h"

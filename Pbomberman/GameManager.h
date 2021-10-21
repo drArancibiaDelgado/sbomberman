@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Bomberman.h"
+#include "BombermanRobot.h"
 #include "MuroMetal.h"
 #include "MapGenerator.h"
 #include "system/KeyboardInput.h"

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GameManager.h"
+#include <vector>
 //#include "Bomberman.h"
 //#include "GameObject.h"
 //#include "GameActor.h"
