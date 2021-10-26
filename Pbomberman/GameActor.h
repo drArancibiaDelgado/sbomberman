@@ -127,4 +127,12 @@ public:
 	virtual void update() {};
 	virtual void handleEvent(SDL_Event* event) {};
 	virtual void deleteGameObject() {};
+
+
+	/*void Bomberman::nb() {
+		for (int i = 0; i < actoresJuego.size(); i++) {
+			actoresJuego[i]->update();
+		}
+	}*/
+
 };

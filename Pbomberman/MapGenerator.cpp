@@ -1,6 +1,6 @@
 #include "MapGenerator.h"
 
-
+// hoy 25/10/2021 aprenderemos como son y usar los contenedores avanzados
 MapGenerator::MapGenerator()
 {
 	anchoPantalla = 0;

@@ -105,10 +105,10 @@ Bomberman* TilesGraph::getBomberman()
 }
 BombermanRobot* TilesGraph::getBombermanRobot()
 {
-    for(auto i =vTilesGraph.begin();i != vTilesGraph.end(); ++i)
-    {
-        if ((*i)->getBombermanRobot() != nullptr) {
-            return (*i)->getBombermanRobot();
+   for(auto i =vTilesGraph.begin();i != vTilesGraph.end(); ++i)
+   {
+       if ((*i)->getBombermanRobot() != nullptr) {
+         return (*i)->getBombermanRobot();
         }
-    }
+  }
 }

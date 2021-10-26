@@ -1,3 +1,4 @@
+
 enum MoveDirection {
 	MOVE_DIRECTION_ARRIBA,
 	MOVE_DIRECTION_ABAJO,
@@ -5,3 +6,6 @@ enum MoveDirection {
 	MOVE_DIRECTION_DERECHA,
 	MOVE_DIRECTION_NONE
 };
+
+
+

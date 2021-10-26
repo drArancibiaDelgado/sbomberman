@@ -91,12 +91,30 @@ void Bomberman::update()
 			break;
 		}
 
+
+
+		//esta era mi logica pero no supe como implementarla
+		//mb.insert(posicionX, posicionY);
+		// 
+		// for (int i = 0; i <= 2; i++)
+		//{
+		//	cout << mb.at(i).posicionX << "....." << endl;
+		//	cout << mb.at(i).posicionY << "....." << endl;
+		//}
+		
+	
+		
+		
+		
+		
 		// Asignacion de coliciones
 		//
 		//
 
 		// Cambio de direccion
-
+		
+			
+	
 		if ((direccionActual == MOVE_DIRECTION_ABAJO || direccionActual == MOVE_DIRECTION_ARRIBA) && posicionY == tileSiguiente->getPosicionTileY() * Tile::altoTile)
 			setTileActual(tileSiguiente);
 
