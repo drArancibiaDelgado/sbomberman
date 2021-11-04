@@ -34,6 +34,7 @@ private:
     vector<GameObject*> actoresJuego;
     MapGenerator* generadorMapa;
     KeyboardInput* keyboardInput;
+ 
 
 
     SDL_Event evento;

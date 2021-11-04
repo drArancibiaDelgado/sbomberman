@@ -4,7 +4,7 @@
 
 namespace bomberman
 {
-    Text::Text(std::shared_ptr<TTF_Font> _font, SDL_Renderer* _renderer, const std::string& _text):Sprite(_renderer)
+    Text::Text(std::shared_ptr<TTF_Font> _font, SDL_Renderer* _renderer, const std::string& _text) :Sprite(texture, renderer)
     {
         this->font = _font;
         this->text = _text;
