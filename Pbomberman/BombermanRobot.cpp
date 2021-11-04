@@ -29,7 +29,7 @@ BombermanRobot::BombermanRobot(Texture* _textura, Tile* _tileActual) :GamePawn(_
 
 void BombermanRobot::update()
 {
-	direccionSiguiente = MOVE_DIRECTION_NONE;
+	/*direccionSiguiente = MOVE_DIRECTION_NONE;
 
 	if (keyboardInput->IsKeyOn(botonDown)) {
 		direccionSiguiente = MOVE_DIRECTION_ABAJO;
@@ -47,7 +47,7 @@ void BombermanRobot::update()
 	if (direccionSiguiente != direccionActual && tratarDeMover(direccionSiguiente))
 		direccionActual = direccionSiguiente;
 	else
-		tratarDeMover(direccionActual);
+		tratarDeMover(direccionActual);*/
 
 
 	if (tileSiguiente != nullptr) {

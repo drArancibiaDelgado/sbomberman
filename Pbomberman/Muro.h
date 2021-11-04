@@ -10,5 +10,5 @@ private:
 
 public:
 	//Constructor
-	Muro(Texture* textura);
+	//Muro(Texture* textura);
 };

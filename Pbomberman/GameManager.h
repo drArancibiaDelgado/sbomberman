@@ -8,12 +8,11 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Bomberman.h"
-#include "BombermanRobot.h"
 #include "MuroMetal.h"
-#include "MuroVegetacion.h"
 #include "MapGenerator.h"
 #include "system/KeyboardInput.h"
 #include "TilesGraph.h"
+#include "Scene.h"
 
 using namespace std;
 
@@ -41,6 +40,10 @@ private:
     bool enEjecucion;
 
     TilesGraph* tilesGraphGM;
+
+    SDL_Rect camera;
+    Uint32 lastTickTime = 0;
+
 public:
     // Constructores & destructores
     GameManager();
