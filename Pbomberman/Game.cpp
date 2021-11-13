@@ -6,7 +6,7 @@
 
 #include "Game.h"
 //#include "LevelScene.h"
-//#include "MenuScene.h"
+#include "MenuScene.h"
 
 namespace bomberman
 {
@@ -64,14 +64,14 @@ namespace bomberman
         windowWidth = w;
         windowHeight = h;
 
-        //assetManager = new AssetManager();
+        assetManager = new AssetManager();
         sceneManager = new SceneManager();
     }
 
     Game::~Game()
     {
         delete sceneManager;
-        //delete assetManager;
+        delete assetManager;
         // delete SDL2 C pointers
         SDL_DestroyWindow(window);
         SDL_DestroyRenderer(renderer);
@@ -93,9 +93,9 @@ namespace bomberman
         isRunning = true;
 
         // load assets
-       // assetManager->load(renderer);
+        assetManager->load(renderer);
         // create menu scene
-       // sceneManager->addScene("menu", std::make_shared<MenuScene>(this));
+        sceneManager->addScene("menu", std::make_shared<MenuScene>(this));
         sceneManager->activateScene("menu");
 
         SDL_Event event;
@@ -156,8 +156,8 @@ namespace bomberman
         return sceneManager;
     }
 
-   // AssetManager* Game::getAssetManager() const
-   // {
-      //  return assetManager;
-   // }
+    AssetManager* Game::getAssetManager() const
+    {
+        return assetManager;
+    }
 } // namespace bomberman

@@ -13,7 +13,6 @@ public:
 	static int numeroGameObjectCreados;
 	GameObject();
 	GameObject(string _nombre);
-
 	int getIdGameObject() { return idGameObject; }
 	string getNombre() { return nombre; }
 	bool getEliminar() { return eliminar; }

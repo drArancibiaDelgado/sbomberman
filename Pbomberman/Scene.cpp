@@ -1,58 +1,57 @@
 #include <algorithm>
-#include "GameObject.h"
+
 #include "Scene.h"
 
-namespace bomberman
+
+Scene::Scene(GameManager* _gm01)
 {
-    Scene::Scene(Game* _game)
+    this->gm01 = _gm01;
+    // set camera to up-left position
+    camera = { 0, 0, 0, 0 };
+}
+
+Scene::~Scene() {}
+
+void Scene::addObject(std::shared_ptr<Sprite> object)
+{
+    objects.push_back(std::move(object));
+}
+
+void Scene::insertObject(std::shared_ptr<Sprite> object, int position)
+{
+    objects.insert(objects.begin() + position, object);
+}
+
+void Scene::removeObject(std::shared_ptr<Sprite> object)
+{
+    objects.erase(std::remove(objects.begin(), objects.end(), object), objects.end());
+}
+
+void Scene::setCamera(const int x, const int y)
+{
+    camera.x = x;
+    camera.y = y;
+}
+
+void Scene::onEnter() {}
+
+void Scene::onExit() {}
+
+void Scene::onEvent(const SDL_Event& /*event*/) {}
+
+void Scene::update(const unsigned int delta)
+{
+    for (auto& object : objects)
     {
-        this->game = _game;
-        // set camera to up-left position
-        camera = { 0, 0, 0, 0 };
+        object->update(delta);
     }
+}
 
-    Scene::~Scene() {}
-
-    void Scene::addObject(std::shared_ptr<GameObject> object)
+void Scene::render()
+{
+    for (auto& object : objects)
     {
-        objects.push_back(std::move(object));
+        object->render(camera);
     }
-
-    void Scene::insertObject(std::shared_ptr<GameObject> object, int position)
-    {
-        objects.insert(objects.begin() + position, object);
-    }
-
-    void Scene::removeObject(std::shared_ptr<GameObject> object)
-    {
-        objects.erase(std::remove(objects.begin(), objects.end(), object), objects.end());
-    }
-
-    void Scene::setCamera(const int x, const int y)
-    {
-        camera.x = x;
-        camera.y = y;
-    }
-
-    void Scene::onEnter() {}
-
-    void Scene::onExit() {}
-
-    void Scene::onEvent(const SDL_Event& /*event*/) {}
-
-    void Scene::update(const unsigned int delta)
-    {
-        for (auto& object : objects)
-        {
-            object->update(delta);
-        }
-    }
-
-    void Scene::render() 
-    {
-        for (const auto& object : objects)
-        {
-            object->render(camera);
-        }
-    }
-} // namespace bomberman
+}
+// namespace bomberman

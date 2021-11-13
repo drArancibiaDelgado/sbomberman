@@ -4,15 +4,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
-
 #include <SDL.h>
 #include <SDL_image.h>
+#include "SceneManager.h"
+#include "AssetManager.h"
 #include "Bomberman.h"
 #include "MuroMetal.h"
 #include "MapGenerator.h"
 #include "system/KeyboardInput.h"
 #include "TilesGraph.h"
-#include "Scene.h"
+#include "StageScene.h"
+
 
 using namespace std;
 
@@ -27,14 +29,17 @@ private:
 
     //The window renderer
     SDL_Renderer* gRenderer;
+    SDL_Renderer* renderer = nullptr;
 
     //Current displayed texture
     SDL_Texture* gTexture = nullptr;
 
+    SceneManager* sceneManager = nullptr;
+    AssetManager* assetManager = nullptr;
+
     vector<GameObject*> actoresJuego;
     MapGenerator* generadorMapa;
     KeyboardInput* keyboardInput;
- 
 
 
     SDL_Event evento;
@@ -43,11 +48,45 @@ private:
     TilesGraph* tilesGraphGM;
 
     SDL_Rect camera;
+
+    bool isRunning = false;
     Uint32 lastTickTime = 0;
 
 public:
     // Constructores & destructores
     GameManager();
+
+    void stop();
+    /**
+     * @brief Get the Window Width
+     *
+     * @return int - window width
+     */
+    int getWindowWidth() const;
+    /**
+     * @brief Get the Window Height
+     *
+     * @return int - window height
+     */
+    int getWindowHeight() const;
+    /**
+     * @brief Get SDL2 Renderer
+     *
+     * @return SDL_Renderer* - SDL2 renderer
+     */
+    SDL_Renderer* getRenderer() const;
+    /**
+     * @brief Get Scene Manager reference
+     *
+     * @return SceneManager* - scene manager reference
+     */
+    SceneManager* getSceneManager() const;
+    /**
+     * @brief Get Asset Manager reference
+     *
+     * @return AssetManager* - asset manager reference
+     */
+    AssetManager* getAssetManager() const;
 
     // Metodos especializados
     bool onInit();

@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <memory>
 
-//#include "AssetManager.h"
+#include "AssetManager.h"
 #include "SceneManager.h"
 
 namespace bomberman
@@ -64,7 +64,7 @@ namespace bomberman
          *
          * @return AssetManager* - asset manager reference
          */
-        //AssetManager* getAssetManager() const;
+        AssetManager* getAssetManager() const;
 
     private:
         // SDL2 C pointers
@@ -72,7 +72,7 @@ namespace bomberman
         SDL_Renderer* renderer = nullptr;
 
         SceneManager* sceneManager = nullptr; // scene manager
-       // AssetManager* assetManager = nullptr; // asset manager
+        AssetManager* assetManager = nullptr; // asset manager
 
         // screen parameters
         int windowWidth = 0;
